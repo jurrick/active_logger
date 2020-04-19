@@ -17,4 +17,5 @@ script:
 matrix:
   allow_failures:
     - rvm: 2.3
+    - rvm: 2.4
     - rvm: ruby-head
