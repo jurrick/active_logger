@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/jurrick/active_logger.svg?branch=master)](https://travis-ci.com/jurrick/active_logger)
+[![Gem Version](http://img.shields.io/gem/v/active_logger.svg)](http://badge.fury.io/rb/active_logger) [![Build Status](https://travis-ci.com/jurrick/active_logger.svg?branch=master)](https://travis-ci.com/jurrick/active_logger)
 
 # ActiveLogger
 
