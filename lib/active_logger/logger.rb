@@ -19,7 +19,7 @@ module ActiveLogger
         when :stderr, STDERR
           ActiveSupport::Logger.new(STDERR)
         when String, Pathname
-          ActiveSupport::Logger.new(type)
+          ActiveSupport::Logger.new(type.to_s, options[:keep], options[:size])
         when :file
           ActiveSupport::Logger.new(options[:filename], options[:keep], options[:size])
         else
