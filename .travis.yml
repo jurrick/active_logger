@@ -2,5 +2,15 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.7.0
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+  - 2.7
+  - ruby-head
 before_install: gem install bundler -v 2.1.2
+install:
+  - bundle install --retry=3
+script:
+  - bundle exec rubocop --parallel
+  - bundle exec rspec
