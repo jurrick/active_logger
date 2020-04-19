@@ -11,7 +11,7 @@ RSpec.describe ActiveLogger::Logger do
     [:file, filename: 'log/test.log', size: 1000],
     [:file, filename: 'log/test.log', size: 1000, keep: 5],
     ['log/test.log', size: 1000, keep: 5],
-    [Pathname.new('log/test.log'), size: 1000, keep: 5],
+    [Pathname.new('log/test.log'), size: 1000, keep: 5]
   ].each do |args|
     describe "with arguments #{args.inspect}" do
       it do
