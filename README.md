@@ -22,7 +22,34 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Basic example
+
+```ruby
+logger = ActiveLogger.new :stdout
+logger.info 'test' # => test
+```
+
+There are 3 types:
+
+* `:stdout` : Messages will be written to STDOUT
+* `:stderr` : Messages will be written to STDERR
+* `:file` : Messages will be written to a file
+
+### File example
+
+```ruby
+logger = ActiveLogger.new :file, filename: 'log/development.log', keep: 30, size: 10
+logger.info 'test'
+
+# Alternative
+logger = ActiveLogger.new 'log/development.log', keep: 30, size: 10
+logger.info 'test'
+```
+
+where:
+* filename - full path to logfile for writing
+* keep - count of files for keeping
+* size - maximum bytes for one file
 
 ## Development
 
