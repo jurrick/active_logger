@@ -61,6 +61,17 @@ end
 logger.info 'test'
 ```
 
+### Example: Tagging
+
+```ruby
+logger = ActiveLogger.new STDOUT
+logger.tagged('API').info 'test'
+# or
+logger.tagged('API') do
+  logger.info 'test'
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
