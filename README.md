@@ -51,6 +51,16 @@ where:
 * keep - count of files for keeping
 * size - maximum bytes for one file
 
+### Example: Block and multiple appenders
+
+```ruby
+logger = ActiveLogger.new do |al|
+  al.appender :stdout
+  al.appender :file, filename: 'log/development.log', keep: 30, size: 10
+end
+logger.info 'test'
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

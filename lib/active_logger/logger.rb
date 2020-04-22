@@ -2,30 +2,51 @@
 
 module ActiveLogger
   module Logger # :nodoc:
-    class AdapterNotFound < StandardError; end
+    module_function
 
-    class << self
-      def new(*args, &_block)
-        # extract options
-        options = args.last.is_a?(Hash) ? args.pop : {}
+    include ActiveLogger::Helpers::Base
+    include ActiveLogger::Helpers::Appender
 
-        setup(args.first, options)
+    class AppenderNotFound < StandardError; end
+    class FilenameNotSpecified < StandardError; end
+
+    def new(*args, &block)
+      # extract options
+      options = args.last.is_a?(Hash) ? args.pop : {}
+
+      reset!
+
+      if block_given?
+        block.arity.positive? ? block.call(self) : instance_eval(&block)
+      else
+        type = args.first
+        appender(type, options)
       end
 
-      def setup(type, options)
-        case type
-        when :stdout, STDOUT
-          ActiveSupport::Logger.new(STDOUT)
-        when :stderr, STDERR
-          ActiveSupport::Logger.new(STDERR)
-        when String, Pathname
-          ActiveSupport::Logger.new(type.to_s, options[:keep], options[:size])
-        when :file
-          ActiveSupport::Logger.new(options[:filename], options[:keep], options[:size])
-        else
-          raise AdapterNotFound
-        end
+      assign_appenders = appenders.drop(1)
+      assign_appenders.inject(appenders[0]) { |appender, acc| acc.extend(ActiveSupport::Logger.broadcast(appender)) }
+    end
+
+    def loggable(type, options = {})
+      parameters = []
+
+      case type
+      when :stdout, STDOUT
+        parameters << STDOUT
+      when :stderr, STDERR
+        parameters << STDERR
+      when String, Pathname
+        parameters = [type.to_s, options[:keep], options[:size]]
+      when :file
+        raise FilenameNotSpecified if options[:filename].nil?
+
+        parameters = [options[:filename], options[:keep], options[:size]]
+      else
+        raise AppenderNotFound
       end
+
+      logger = ActiveSupport::Logger.new(*parameters)
+      logger
     end
   end
 end
