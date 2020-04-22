@@ -24,7 +24,8 @@ module ActiveLogger
       end
 
       assign_appenders = appenders.drop(1)
-      assign_appenders.inject(appenders[0]) { |appender, acc| acc.extend(ActiveSupport::Logger.broadcast(appender)) }
+      loggers = assign_appenders.inject(appenders[0]) { |appender, acc| acc.extend(ActiveSupport::Logger.broadcast(appender)) }
+      TaggedLogging.new(loggers)
     end
 
     def loggable(type, options = {})

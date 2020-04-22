@@ -14,3 +14,7 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Enabled: false
+
+# Configuration parameters: IgnoredMethods.
+Metrics/AbcSize:
+  Max: 30
