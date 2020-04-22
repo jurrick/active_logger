@@ -6,6 +6,7 @@ module ActiveLogger
 
     include ActiveLogger::Helpers::Base
     include ActiveLogger::Helpers::Level
+    include ActiveLogger::Helpers::Formatter
     include ActiveLogger::Helpers::Appender
 
     class AppenderNotFound < StandardError; end
@@ -17,6 +18,7 @@ module ActiveLogger
 
       reset!
 
+      self.formatter = options[:formatter] unless options[:formatter].nil?
       self.level = options[:level] unless options[:level].nil?
 
       if block_given?
@@ -51,6 +53,7 @@ module ActiveLogger
 
       logger = ActiveSupport::Logger.new(*parameters)
       logger.level = level
+      logger.formatter = formatter
       logger
     end
   end

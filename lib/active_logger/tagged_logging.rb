@@ -5,55 +5,6 @@ require 'active_support/core_ext/object/blank'
 
 module ActiveLogger
   module TaggedLogging # :nodoc:
-    module Formatter # :nodoc:
-      # This method is invoked when a log event occurs.
-      def call(severity, timestamp, progname, msg)
-        super(severity, timestamp, progname, "#{tags_text}#{msg}")
-      end
-
-      def tagged(*tags)
-        new_tags = push_tags(*tags)
-        yield self
-      ensure
-        pop_tags(new_tags.size)
-      end
-
-      def push_tags(*tags)
-        @tags_text = nil
-        tags.flatten!
-        tags.reject!(&:blank?)
-        current_tags.concat tags
-        tags
-      end
-
-      def pop_tags(size = 1)
-        @tags_text = nil
-        current_tags.pop size
-      end
-
-      def clear_tags!
-        @tags_text = nil
-        current_tags.clear
-      end
-
-      def current_tags
-        # We use our object ID here to avoid conflicting with other instances
-        thread_key = @thread_key ||= "activesupport_tagged_logging_tags:#{object_id}"
-        Thread.current[thread_key] ||= []
-      end
-
-      def tags_text
-        @tags_text ||= begin
-          tags = current_tags
-          if tags.one?
-            "[#{tags[0]}] "
-          elsif tags.any?
-            tags.collect { |tag| "[#{tag}] " }.join
-          end
-        end
-      end
-    end
-
     module LocalTagStorage # :nodoc:
       attr_accessor :current_tags
 
@@ -70,10 +21,9 @@ module ActiveLogger
           logger.formatter.dup
         else
           # Ensure we set a default formatter so we aren't extending nil!
-          ActiveSupport::Logger::SimpleFormatter.new
+          ActiveLogger::Formatters::Default.new
         end
 
-      logger.formatter.extend Formatter
       logger.extend(self)
     end
 

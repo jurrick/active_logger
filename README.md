@@ -88,6 +88,32 @@ ActiveLogger.new do |al|
 end
 ```
 
+### Example: Formatters
+
+There are 2 standard formatters: `:default` and `:json`.
+
+```ruby
+ActiveLogger.new STDOUT, formatter: :json
+
+# or
+
+ActiveLogger.new do |al|
+  al.formatter = :json
+
+  al.appender :stdout
+end
+
+# or custom formatter
+
+class Formatter < ActiveLogger::Formatters::Base
+  def call(severity, timestamp, progname, msg)
+    "[#{severity}] [#{timestamp}] #{msg}"
+  end
+end
+
+ActiveLogger.new STDOUT, formatter: Formatter
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

@@ -67,4 +67,50 @@ RSpec.describe ActiveLogger::Logger do
       end
     end
   end
+
+  FORMATTERS = [
+    { name: :default, class: ActiveLogger::Formatters::Default },
+    { name: :json, class: ActiveLogger::Formatters::Json }
+  ].freeze
+
+  FORMATTERS.each do |formatter|
+    describe "with argument formatter #{formatter[:name].inspect}" do
+      let(:logger) { described_class.new :stdout, formatter: formatter[:name] }
+
+      it do
+        expect(logger.formatter.class).to eq(formatter[:class])
+      end
+    end
+
+    describe "with block argument formatter #{formatter[:name].inspect}" do
+      let(:logger) do
+        described_class.new do |al|
+          al.formatter = formatter[:name]
+          al.appender :stdout
+        end
+      end
+
+      it do
+        expect(logger.formatter.class).to eq(formatter[:class])
+      end
+    end
+  end
+
+  describe 'with custom argument formatter' do
+    let(:formatter) do
+      class Formatter < ActiveLogger::Formatters::Base
+        def call(severity, timestamp, _progname, msg)
+          "[#{severity}] [#{timestamp}] #{msg}"
+        end
+      end
+
+      Formatter
+    end
+
+    let(:logger) { described_class.new :stdout, formatter: formatter.new }
+
+    it do
+      expect(logger.formatter.class).to eq(formatter)
+    end
+  end
 end

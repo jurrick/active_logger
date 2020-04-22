@@ -11,9 +11,15 @@ module ActiveLogger # :nodoc:
   end
 end
 
+# Formatters
+require File.dirname(__FILE__) + '/active_logger/formatters/base'
+require File.dirname(__FILE__) + '/active_logger/formatters/default'
+require File.dirname(__FILE__) + '/active_logger/formatters/json'
+
 # Helpers
 require File.dirname(__FILE__) + '/active_logger/helpers/base'
 require File.dirname(__FILE__) + '/active_logger/helpers/level'
+require File.dirname(__FILE__) + '/active_logger/helpers/formatter'
 require File.dirname(__FILE__) + '/active_logger/helpers/appender'
 
 require File.dirname(__FILE__) + '/active_logger/tagged_logging'
