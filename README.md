@@ -66,9 +66,25 @@ logger.info 'test'
 ```ruby
 logger = ActiveLogger.new STDOUT
 logger.tagged('API').info 'test'
+
 # or
+
 logger.tagged('API') do
   logger.info 'test'
+end
+```
+
+### Example: Setting the Log Level
+
+```ruby
+ActiveLogger.new STDOUT, level: :info
+
+# or
+
+ActiveLogger.new do |al|
+  al.level = :debug
+
+  al.appender :stdout
 end
 ```
 

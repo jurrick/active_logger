@@ -13,10 +13,6 @@ module ActiveLogger #:nodoc:
         def appenders
           @appenders ||= []
         end
-
-        private
-
-        def reset!; end
       end
     end
   end

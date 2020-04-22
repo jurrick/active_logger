@@ -5,6 +5,7 @@ module ActiveLogger
     module_function
 
     include ActiveLogger::Helpers::Base
+    include ActiveLogger::Helpers::Level
     include ActiveLogger::Helpers::Appender
 
     class AppenderNotFound < StandardError; end
@@ -15,6 +16,8 @@ module ActiveLogger
       options = args.last.is_a?(Hash) ? args.pop : {}
 
       reset!
+
+      self.level = options[:level] unless options[:level].nil?
 
       if block_given?
         block.arity.positive? ? block.call(self) : instance_eval(&block)
@@ -47,6 +50,7 @@ module ActiveLogger
       end
 
       logger = ActiveSupport::Logger.new(*parameters)
+      logger.level = level
       logger
     end
   end

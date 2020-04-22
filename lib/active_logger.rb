@@ -13,6 +13,7 @@ end
 
 # Helpers
 require File.dirname(__FILE__) + '/active_logger/helpers/base'
+require File.dirname(__FILE__) + '/active_logger/helpers/level'
 require File.dirname(__FILE__) + '/active_logger/helpers/appender'
 
 require File.dirname(__FILE__) + '/active_logger/tagged_logging'

@@ -38,4 +38,33 @@ RSpec.describe ActiveLogger::Logger do
       expect { described_class.new :unknown }.to raise_error(ActiveLogger::Logger::AppenderNotFound)
     end
   end
+
+  CLASS_SEVERITIES = [Logger::DEBUG, Logger::INFO, Logger::WARN, Logger::ERROR, Logger::FATAL].freeze
+  SYMBOL_SEVERITIES = %i[debug info warn error fatal].freeze
+  STRING_SEVERITIES = %w[DEBUG INFO WARN ERROR FATAL].freeze
+
+  (CLASS_SEVERITIES + SYMBOL_SEVERITIES + STRING_SEVERITIES).each do |level|
+    describe "with argument level #{level.inspect}" do
+      let(:logger) { described_class.new :stdout, level: level }
+
+      it do
+        eq_level = [Symbol, String].include?(level.class) ? STRING_SEVERITIES.index(level.to_s.upcase) : level
+        expect(logger.level).to eq(eq_level)
+      end
+    end
+
+    describe "with block argument level #{level.inspect}" do
+      let(:logger) do
+        described_class.new do |al|
+          al.level = level
+          al.appender :stdout
+        end
+      end
+
+      it do
+        eq_level = [Symbol, String].include?(level.class) ? STRING_SEVERITIES.index(level.to_s.upcase) : level
+        expect(logger.level).to eq(eq_level)
+      end
+    end
+  end
 end
