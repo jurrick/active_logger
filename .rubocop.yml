@@ -6,8 +6,24 @@ require:
 AllCops:
   NewCops: enable
 
+# ************************
+# LAYOUT
+# ************************
+
 Layout/LineLength:
   Max: 130
+
+# ************************
+# METRICS
+# ************************
+
+# Configuration parameters: IgnoredMethods.
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# Configuration parameters: IgnoredMethods.
+Metrics/PerceivedComplexity:
+  Enabled: false
 
 Metrics/BlockLength:
   Enabled: false
@@ -19,5 +35,8 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Max: 30
 
+# ************************
+# RSPEC
+# ************************
 RSpec/LeakyConstantDeclaration:
   Enabled: false

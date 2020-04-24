@@ -54,6 +54,10 @@ module ActiveLogger
       def pid
         $PID
       end
+
+      def default_progname
+        $PROGRAM_NAME
+      end
     end
   end
 end

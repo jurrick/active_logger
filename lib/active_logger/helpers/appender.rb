@@ -38,6 +38,7 @@ module ActiveLogger #:nodoc:
           logger = ActiveSupport::Logger.new(*parameters)
           logger.level = level
           logger.formatter = formatter
+          logger.progname = progname
           logger
         end
       end

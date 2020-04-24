@@ -6,9 +6,19 @@ module ActiveLogger #:nodoc:
       extend ActiveSupport::Concern
 
       class_methods do
+        def progname=(progname)
+          @progname = progname
+        end
+
+        def progname
+          @progname
+        end
+
         private
 
-        def reset!; end
+        def reset!
+          self.progname = nil
+        end
       end
     end
   end

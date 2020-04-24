@@ -7,7 +7,7 @@ module ActiveLogger
     class Json < Base # :nodoc:
       def call(severity, timestamp, progname, msg)
         {
-          progname: progname,
+          progname: progname || default_progname,
           severity: severity,
           timestamp: timestamp.utc.strftime(datetime_format),
           tags: current_tags,

@@ -17,6 +17,7 @@ module ActiveLogger
 
       self.formatter = options[:formatter] unless options[:formatter].nil?
       self.level = options[:level] unless options[:level].nil?
+      self.progname = options[:progname] unless options[:progname].nil?
 
       if block_given?
         block.arity.positive? ? block.call(self) : instance_eval(&block)
