@@ -9,9 +9,6 @@ module ActiveLogger
     include ActiveLogger::Helpers::Formatter
     include ActiveLogger::Helpers::Appender
 
-    class AppenderNotFound < StandardError; end
-    class FilenameNotSpecified < StandardError; end
-
     def new(*args, &block)
       # extract options
       options = args.last.is_a?(Hash) ? args.pop : {}
@@ -31,30 +28,6 @@ module ActiveLogger
       assign_appenders = appenders.drop(1)
       loggers = assign_appenders.inject(appenders[0]) { |appender, acc| acc.extend(ActiveSupport::Logger.broadcast(appender)) }
       TaggedLogging.new(loggers)
-    end
-
-    def loggable(type, options = {})
-      parameters = []
-
-      case type
-      when :stdout, STDOUT
-        parameters << STDOUT
-      when :stderr, STDERR
-        parameters << STDERR
-      when String, Pathname
-        parameters = [type.to_s, options[:keep], options[:size]]
-      when :file
-        raise FilenameNotSpecified if options[:filename].nil?
-
-        parameters = [options[:filename], options[:keep], options[:size]]
-      else
-        raise AppenderNotFound
-      end
-
-      logger = ActiveSupport::Logger.new(*parameters)
-      logger.level = level
-      logger.formatter = formatter
-      logger
     end
   end
 end
