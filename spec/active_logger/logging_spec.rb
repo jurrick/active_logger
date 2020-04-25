@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ActiveLogger::Logger do
+RSpec.describe ActiveLogger::Logging do
   [
     [:stdout],
     [:stderr],
@@ -29,13 +29,13 @@ RSpec.describe ActiveLogger::Logger do
 
   describe 'without arguments' do
     it do
-      expect { described_class.new }.to raise_error(ActiveLogger::Logger::AppenderNotFound)
+      expect { described_class.new }.to raise_error(ActiveLogger::Logging::AppenderNotFound)
     end
   end
 
   describe 'with fail argument' do
     it do
-      expect { described_class.new :unknown }.to raise_error(ActiveLogger::Logger::AppenderNotFound)
+      expect { described_class.new :unknown }.to raise_error(ActiveLogger::Logging::AppenderNotFound)
     end
   end
 

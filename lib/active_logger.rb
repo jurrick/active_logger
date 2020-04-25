@@ -7,7 +7,7 @@ module ActiveLogger # :nodoc:
   module_function
 
   def new(*args, &block)
-    ActiveLogger::Logger.new(*args, &block)
+    ActiveLogger::Logging.new(*args, &block)
   end
 end
 
@@ -23,4 +23,4 @@ require File.dirname(__FILE__) + '/active_logger/helpers/formatter'
 require File.dirname(__FILE__) + '/active_logger/helpers/appender'
 
 require File.dirname(__FILE__) + '/active_logger/tagged_logging'
-require File.dirname(__FILE__) + '/active_logger/logger'
+require File.dirname(__FILE__) + '/active_logger/logging'

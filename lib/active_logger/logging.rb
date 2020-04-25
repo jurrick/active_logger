@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ActiveLogger
-  module Logger # :nodoc:
+  module Logging # :nodoc:
     module_function
 
     include ActiveLogger::Helpers::Base
