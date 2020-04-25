@@ -35,7 +35,7 @@ module ActiveLogger #:nodoc:
             raise AppenderNotFound
           end
 
-          logger = ActiveSupport::Logger.new(*parameters)
+          logger = ActiveLogger::Logger.new(*parameters)
           logger.level = level
           logger.formatter = formatter
           logger.progname = progname
