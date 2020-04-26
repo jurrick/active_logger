@@ -27,6 +27,9 @@ Or install it yourself as:
 ```ruby
 logger = ActiveLogger.new :stdout
 logger.info 'test' # => test
+
+# with options
+logger = ActiveLogger.new :stdout, level: :debug, formatter: :json, progname: :project1
 ```
 
 There are 3 types:
@@ -34,6 +37,12 @@ There are 3 types:
 * `:stdout` : Messages will be written to STDOUT
 * `:stderr` : Messages will be written to STDERR
 * `:file` : Messages will be written to a file
+
+Available standard options:
+
+* `level` - log level (`DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL`)
+* `formatter` - format for logs: `:default`, `:json` or own custom formatter.
+* `progname` - program name.
 
 ### File example
 
