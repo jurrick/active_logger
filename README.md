@@ -98,23 +98,11 @@ logger2.debug? # false
 logger2.info 'test2'
 ```
 
-### Example: Formatters
+### Example: Custom formatter
 
-There are 2 standard formatters: `:default` and `:json`.
+You can create your own formatter:
 
 ```ruby
-ActiveLogger.new STDOUT, formatter: :json
-
-# or
-
-ActiveLogger.new do |al|
-  al.formatter = :json
-
-  al.appender :stdout
-end
-
-# or custom formatter
-
 class Formatter < ActiveLogger::Formatters::Base
   def call(severity, timestamp, progname, msg)
     "[#{severity}] [#{timestamp}] #{msg}"
