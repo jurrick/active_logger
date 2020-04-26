@@ -83,18 +83,19 @@ logger.tagged('API') do
 end
 ```
 
-### Example: Setting the Log Level
+### Example: Global logger with name
 
 ```ruby
-ActiveLogger.new STDOUT, level: :info
+ActiveLogger.new STDOUT, name: :logger1, level: :debug
+ActiveLogger.new STDOUT, name: :logger2, level: :info
 
-# or
+logger1 = ActiveLogger['logger1']
+logger1.debug? # true
+logger1.debug 'test'
 
-ActiveLogger.new do |al|
-  al.level = :debug
-
-  al.appender :stdout
-end
+logger2 = ActiveLogger['logger2']
+logger2.debug? # false
+logger2.info 'test2'
 ```
 
 ### Example: Formatters

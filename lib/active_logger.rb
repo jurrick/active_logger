@@ -9,6 +9,14 @@ module ActiveLogger # :nodoc:
   def new(*args, &block)
     ActiveLogger::Logging.new(*args, &block)
   end
+
+  def [](name)
+    ActiveLogger::Repository[name]
+  end
+
+  def []=(name, logger)
+    ActiveLogger::Repository[name] = logger
+  end
 end
 
 # Formatters
@@ -25,3 +33,4 @@ require File.dirname(__FILE__) + '/active_logger/helpers/appender'
 require File.dirname(__FILE__) + '/active_logger/tagged_logging'
 require File.dirname(__FILE__) + '/active_logger/logging'
 require File.dirname(__FILE__) + '/active_logger/logger'
+require File.dirname(__FILE__) + '/active_logger/repository'

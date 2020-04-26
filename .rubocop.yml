@@ -33,7 +33,7 @@ Metrics/MethodLength:
 
 # Configuration parameters: IgnoredMethods.
 Metrics/AbcSize:
-  Max: 30
+  Enabled: false
 
 # ************************
 # RSPEC
