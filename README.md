@@ -4,6 +4,14 @@
 
 A rich logger extending the capabilities of the ActiveSupport logger
 
+## Features
+
+* Simple syntax for logging
+* Logging to multiple outputs (appenders)
+* Tagging
+* Global logger name
+* Custom formatter
+
 ## Installation
 
 Add this line to your application's Gemfile:
