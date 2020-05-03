@@ -57,10 +57,6 @@ Available standard options:
 ```ruby
 logger = ActiveLogger.new :file, filename: 'log/development.log', keep: 30, size: 10
 logger.info 'test'
-
-# Alternative
-logger = ActiveLogger.new 'log/development.log', keep: 30, size: 10
-logger.info 'test'
 ```
 
 where:

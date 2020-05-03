@@ -19,6 +19,11 @@ module ActiveLogger # :nodoc:
   end
 end
 
+# Appenders
+require File.dirname(__FILE__) + '/active_logger/appenders/base'
+require File.dirname(__FILE__) + '/active_logger/appenders/file'
+require File.dirname(__FILE__) + '/active_logger/appenders/streams'
+
 # Formatters
 require File.dirname(__FILE__) + '/active_logger/formatters/base'
 require File.dirname(__FILE__) + '/active_logger/formatters/default'
@@ -34,3 +39,8 @@ require File.dirname(__FILE__) + '/active_logger/tagged_logging'
 require File.dirname(__FILE__) + '/active_logger/logging'
 require File.dirname(__FILE__) + '/active_logger/logger'
 require File.dirname(__FILE__) + '/active_logger/repository'
+require File.dirname(__FILE__) + '/active_logger/appenders'
+
+ActiveLogger::Appenders.register(:stdout, ActiveLogger::Appenders::Stdout)
+ActiveLogger::Appenders.register(:stderr, ActiveLogger::Appenders::Stderr)
+ActiveLogger::Appenders.register(:file, ActiveLogger::Appenders::File)

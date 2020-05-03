@@ -15,10 +15,10 @@ module ActiveLogger
 
       reset!
 
-      self.formatter = options[:formatter] if options[:formatter]
-      self.level = options[:level] if options[:level]
-      self.progname = options[:progname] if options[:progname]
-      self.name = options[:name] if options[:name]
+      self.formatter = options.delete(:formatter) if options[:formatter]
+      self.level = options.delete(:level) if options[:level]
+      self.progname = options.delete(:progname) if options[:progname]
+      self.name = options.delete(:name) if options[:name]
 
       if block_given?
         block.arity.positive? ? block.call(self) : instance_eval(&block)

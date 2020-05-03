@@ -10,8 +10,6 @@ RSpec.describe ActiveLogger::Logging do
     [:file, filename: 'log/test.log', keep: 5],
     [:file, filename: 'log/test.log', size: 1000],
     [:file, filename: 'log/test.log', size: 1000, keep: 5],
-    ['log/test.log', size: 1000, keep: 5],
-    [Pathname.new('log/test.log'), size: 1000, keep: 5],
     [proc { |al| al.appender(:stdout) }],
     [proc do |al|
        al.appender(:stdout)
@@ -29,13 +27,13 @@ RSpec.describe ActiveLogger::Logging do
 
   describe 'without arguments' do
     it do
-      expect { described_class.new }.to raise_error(ActiveLogger::Logging::AppenderNotFound)
+      expect { described_class.new }.to raise_error(ActiveLogger::Appenders::NotFound)
     end
   end
 
   describe 'with fail argument' do
     it do
-      expect { described_class.new :unknown }.to raise_error(ActiveLogger::Logging::AppenderNotFound)
+      expect { described_class.new :unknown }.to raise_error(ActiveLogger::Appenders::NotFound)
     end
   end
 
