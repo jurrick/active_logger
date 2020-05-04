@@ -13,6 +13,7 @@ module ActiveLogger #:nodoc:
             case formatter
             when :default then ActiveLogger::Formatters::Default.new
             when :json then ActiveLogger::Formatters::Json.new
+            when :syslog then ActiveLogger::Formatters::Syslog.new
             else
               raise FormatterNotFound unless formatter.class.ancestors.include?(ActiveLogger::Formatters::Base)
 
@@ -27,7 +28,7 @@ module ActiveLogger #:nodoc:
         private
 
         def reset!
-          @__formatter__ = ActiveLogger::Formatters::Default.new
+          @__formatter__ = nil
 
           super if defined?(super)
         end

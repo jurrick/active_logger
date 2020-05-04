@@ -116,6 +116,21 @@ end
 ActiveLogger.new STDOUT, formatter: Formatter
 ```
 
+### Example: Syslog
+
+You can use syslog (support only UDP protocol):
+
+```ruby
+logger = ActiveLogger.new :syslog, url: 'udp://sysloghost.com:514', facility: 'local3', maxsize: 1024
+logger.info 'test' # => <13>May  3 19:09:23 localhost console: test
+```
+
+Available options:
+
+* `url` - full url to syslog
+* `facility` - syslog facility (Example: 'user', 'local3', etc)
+* `maxsize` - maximum message size
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
