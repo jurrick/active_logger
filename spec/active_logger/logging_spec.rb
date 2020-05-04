@@ -68,7 +68,8 @@ RSpec.describe ActiveLogger::Logging do
 
   FORMATTERS = [
     { name: :default, class: ActiveLogger::Formatters::Default },
-    { name: :json, class: ActiveLogger::Formatters::Json }
+    { name: :json, class: ActiveLogger::Formatters::Json },
+    { name: :syslog, class: ActiveLogger::Formatters::Syslog }
   ].freeze
 
   FORMATTERS.each do |formatter|
