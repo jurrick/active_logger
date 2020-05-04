@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_logger (0.6.1)
+    active_logger (0.7.0)
       activesupport (>= 5.0.0)
 
 GEM
